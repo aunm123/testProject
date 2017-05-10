@@ -74,26 +74,10 @@
         </javaClientGenerator>
 
 
-        <table tableName="t_user" domainObjectName="User"
-               enableCountByExample="false" enableUpdateByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false">
-        </table>
-        <table tableName="t_orders" domainObjectName="Order"
-               enableCountByExample="false" enableUpdateByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false">
-        </table>
-        <table tableName="t_item" domainObjectName="Item"
-               enableCountByExample="false" enableUpdateByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false">
-        </table>
-        <table tableName="t_orderitem" domainObjectName="OrderItem"
-               enableCountByExample="false" enableUpdateByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false">
-        </table>
+        <table tableName="t_user" domainObjectName="User" />
+        <table tableName="t_orders" domainObjectName="Order" />
+        <table tableName="t_item" domainObjectName="Item" />
+        <table tableName="t_orderitem" domainObjectName="OrderItem" />
 
     </context>
 </generatorConfiguration>

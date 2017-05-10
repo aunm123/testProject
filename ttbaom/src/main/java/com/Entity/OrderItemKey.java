@@ -1,8 +1,6 @@
 package com.Entity;
 
-import java.io.Serializable;
-
-public class OrderItemKey implements Serializable {
+public class OrderItemKey {
     private Integer orderid;
 
     private Integer itemid;

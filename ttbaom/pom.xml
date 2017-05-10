@@ -131,9 +131,9 @@
       <plugin>
         <groupId>org.mybatis.generator</groupId>
         <artifactId>mybatis-generator-maven-plugin</artifactId>
-        <version>1.3.2</version>
+        <version>1.3.5</version>
         <configuration>
-          <verbose>true</verbose>
+          <verbose>false</verbose>
           <overwrite>true</overwrite>
         </configuration>
       </plugin>
