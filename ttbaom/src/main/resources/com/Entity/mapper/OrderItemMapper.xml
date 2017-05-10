@@ -18,7 +18,7 @@
     where orderid = #{orderid,jdbcType=INTEGER}
       and itemid = #{itemid,jdbcType=INTEGER}
   </select>
-  <select id="selectAllWithOrderId" parameterType="com.lang.Integer"  resultType="java.util.List">
+  <select id="selectAllWithOrderId" parameterType="java.lang.Integer"  resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from t_orderitem
