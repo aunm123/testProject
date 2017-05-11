@@ -71,6 +71,7 @@
         <javaClientGenerator targetPackage="com.Entity.dao"
                              targetProject="src/main/java" type="XMLMAPPER">
           <property name="enableSubPackages" value="true"/>
+          <property name="rootInterface" value="com.BaseDao.BaseMapper"/>
         </javaClientGenerator>
 
 

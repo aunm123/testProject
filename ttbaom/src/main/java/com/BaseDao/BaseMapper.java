@@ -1,19 +1,31 @@
 package com.BaseDao;
 
-import java.io.Serializable;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * Created by timhuo on 2017/4/20.
  */
-public interface BaseMapper<T,PK extends Serializable> {
+public interface BaseMapper<T> {
 
-    int deleteByPrimaryKey(PK keyid);
+    long countByExample(Object example);
+
+    int deleteByExample(Object example);
+
+    int deleteByPrimaryKey(Object pk);
 
     int insert(T record);
 
     int insertSelective(T record);
 
-    T selectByPrimaryKey(PK keyid);
+    List<T> selectByExample(Object example);
+
+    T selectByPrimaryKey(Object pk);
+
+    int updateByExampleSelective(@Param("record") T record, @Param("example") Object example);
+
+    int updateByExample(@Param("record") T record, @Param("example") Object example);
 
     int updateByPrimaryKeySelective(T record);
 

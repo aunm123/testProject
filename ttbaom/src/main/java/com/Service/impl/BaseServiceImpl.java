@@ -5,16 +5,15 @@ import com.Service.BaseService;
 import tim.SpringUtil.SpringContextHolder;
 
 import javax.annotation.PostConstruct;
-import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 /**
  * Created by timhuo on 2017/4/20.
  */
-public class BaseServiceImpl<T,PK extends Serializable> implements BaseService<T,PK> {
+public class BaseServiceImpl<T> implements BaseService<T> {
 
-    protected BaseMapper<T,PK> baseDao;
+    protected BaseMapper<T> baseDao;
 
     @PostConstruct
     public void initFunction(){
@@ -28,7 +27,7 @@ public class BaseServiceImpl<T,PK extends Serializable> implements BaseService<T
         baseDao.insert(obj);
     }
 
-    public void delete(PK id) {
+    public void delete(Object id) {
         baseDao.deleteByPrimaryKey(id);
     }
 
@@ -36,11 +35,11 @@ public class BaseServiceImpl<T,PK extends Serializable> implements BaseService<T
         baseDao.updateByPrimaryKey(obj);
     }
 
-    public T findbyId(PK id) {
+    public T findbyId(Object id) {
         return baseDao.selectByPrimaryKey(id);
     }
 
     public List<T> findAll() {
-        return null;
+        return baseDao.selectByExample(null);
     }
 }

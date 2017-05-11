@@ -19,4 +19,11 @@ public class OrderItem extends OrderItemKey {
     public void setNumber(Integer number) {
         this.number = number;
     }
+
+    @Override
+    public String toString() {
+        return "OrderItem{" +
+                "number=" + number +
+                '}';
+    }
 }

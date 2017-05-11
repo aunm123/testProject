@@ -26,8 +26,8 @@ public class testMybatis {
     public void testMM(){
 //        UserServer2 userServer2 = (UserServer2) ac.getBean("userServer2");
         UserMapper userMapper = (UserMapper) ac.getBean("userMapper");
-        User user = userMapper.selectByPrimaryKey(1);
-        System.out.print(user);
+        User user = (User) userMapper.selectByPrimaryKey(1);
+        System.out.println(user.toString());
 //        userServer2.saveUser(new User(1,"name","password"));
     }
 
@@ -35,7 +35,16 @@ public class testMybatis {
     public void testMapper(){
         UserService userService = (UserService) ac.getBean("userService");
         User user = userService.findbyId(1);
-        System.out.print(user.toString());
+        System.out.println(user.toString());
+    }
+
+    @Test
+    public void testMapper1(){
+        UserService userService = (UserService) ac.getBean("userService");
+        List<User> users = userService.findAll();
+        for (User user : users) {
+            System.out.println(user.toString());
+        }
     }
 
     @Test
