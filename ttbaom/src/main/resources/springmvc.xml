@@ -67,10 +67,10 @@
   <!-- 配置事务的传播特性 -->
   <tx:advice id="txAdvice" transaction-manager="transactionManager">
     <tx:attributes>
-      <tx:method name="add*" propagation="REQUIRED" read-only="false"/>
+      <tx:method name="insert" propagation="REQUIRED" read-only="false"/>
       <tx:method name="update*" propagation="REQUIRED" read-only="false"/>
       <tx:method name="delete*" propagation="REQUIRED" read-only="false"/>
-      <tx:method name="find*" propagation="REQUIRED" read-only="true"/>
+      <tx:method name="select*" propagation="REQUIRED" read-only="true"/>
       <tx:method name="*" propagation="REQUIRED" read-only="true"/>
     </tx:attributes>
   </tx:advice>
@@ -79,6 +79,15 @@
   <aop:config>
     <aop:pointcut id="allServiceMethod" expression="bean(*Dao)"/>
     <aop:advisor pointcut-ref="allServiceMethod" advice-ref="txAdvice"/>
+
+    <!--<aop:aspect ref="advices">-->
+      <!--&lt;!&ndash; 切点 &ndash;&gt;-->
+      <!--<aop:pointcut expression="execution(* com.zhangguo.Spring052.aop01.Math.*(..))" id="pointcut1"/>-->
+      <!--&lt;!&ndash;连接通知方法与切点 &ndash;&gt;-->
+      <!--<aop:before method="before" pointcut-ref="pointcut1"/>-->
+      <!--<aop:after method="after" pointcut-ref="pointcut1"/>-->
+    <!--</aop:aspect>-->
+
   </aop:config>
 
   <!-- 配置视图解析器 如何把handler 方法返回值解析为实际的物理视图 -->
