@@ -5,7 +5,7 @@ import java.util.Date;
 public class User {
     private Integer userid;
 
-    private String name;
+    private String loginName;
 
     private String password;
 
@@ -15,13 +15,34 @@ public class User {
 
     private String address;
 
-    public User(Integer userid, String name, String password, String sex, Date birthday, String address) {
+    private String vsername;
+
+    private String mobile;
+
+    private String email;
+
+    private Date genTime;
+
+    private Date loginTime;
+
+    private Date lastLoginTime;
+
+    private Integer count;
+
+    public User(Integer userid, String loginName, String password, String sex, Date birthday, String address, String vsername, String mobile, String email, Date genTime, Date loginTime, Date lastLoginTime, Integer count) {
         this.userid = userid;
-        this.name = name;
+        this.loginName = loginName;
         this.password = password;
         this.sex = sex;
         this.birthday = birthday;
         this.address = address;
+        this.vsername = vsername;
+        this.mobile = mobile;
+        this.email = email;
+        this.genTime = genTime;
+        this.loginTime = loginTime;
+        this.lastLoginTime = lastLoginTime;
+        this.count = count;
     }
 
     public User() {
@@ -36,12 +57,12 @@ public class User {
         this.userid = userid;
     }
 
-    public String getName() {
-        return name;
+    public String getLoginName() {
+        return loginName;
     }
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+    public void setLoginName(String loginName) {
+        this.loginName = loginName == null ? null : loginName.trim();
     }
 
     public String getPassword() {
@@ -76,15 +97,59 @@ public class User {
         this.address = address == null ? null : address.trim();
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "userid=" + userid +
-                ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                ", sex='" + sex + '\'' +
-                ", birthday=" + birthday +
-                ", address='" + address + '\'' +
-                '}';
+    public String getVsername() {
+        return vsername;
+    }
+
+    public void setVsername(String vsername) {
+        this.vsername = vsername == null ? null : vsername.trim();
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile == null ? null : mobile.trim();
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email == null ? null : email.trim();
+    }
+
+    public Date getGenTime() {
+        return genTime;
+    }
+
+    public void setGenTime(Date genTime) {
+        this.genTime = genTime;
+    }
+
+    public Date getLoginTime() {
+        return loginTime;
+    }
+
+    public void setLoginTime(Date loginTime) {
+        this.loginTime = loginTime;
+    }
+
+    public Date getLastLoginTime() {
+        return lastLoginTime;
+    }
+
+    public void setLastLoginTime(Date lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
     }
 }

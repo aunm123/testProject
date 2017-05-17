@@ -9,12 +9,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by timhuo on 2017/4/20.
  */
 @Controller
+@RequestMapping(path = "/user")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -36,10 +39,25 @@ public class UserController {
         return name+" delete ";
     }
 
-    @RequestMapping(value = "/userjson",method = RequestMethod.GET)
-    public @ResponseBody List<User> userListJson(){
-        return userService.findAll();
+
+
+
+    @RequestMapping(value = "/list",method = RequestMethod.GET)
+    public @ResponseBody Map userListJson(@RequestParam(name = "page",required = false,defaultValue = "1")int page,
+                                          @RequestParam(name = "rows",required = false,defaultValue = "20")int rows){
+        List<User> users = userService.findAll();
+        Map map = new HashMap();
+        map.put("rows",users);
+        map.put("total",users.size());
+        return map;
     }
+
+
+
+
+
+
+
 
     @RequestMapping(value = "/hello", produces = "text/plain;charset=UTF-8")
     public @ResponseBody String hello() {

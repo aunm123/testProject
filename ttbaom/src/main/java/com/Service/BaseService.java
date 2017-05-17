@@ -11,4 +11,5 @@ public interface BaseService<T> {
     public void update(T obj);
     public T findbyId(Object id);
     public List<T> findAll();
+    public List<T> findWithPageAndRows(int page,int rows);
 }

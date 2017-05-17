@@ -19,7 +19,7 @@ public class testMybatis {
 
     @Before
     public void befoure(){
-        ac = new ClassPathXmlApplicationContext("springmvc.xml");
+        ac = new ClassPathXmlApplicationContext("spring/springmvc.xml");
     }
 
     @Test

@@ -2,6 +2,8 @@ package com.Service.impl;
 
 import com.BaseDao.BaseMapper;
 import com.Service.BaseService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import tim.SpringUtil.SpringContextHolder;
 
 import javax.annotation.PostConstruct;
@@ -41,5 +43,14 @@ public class BaseServiceImpl<T> implements BaseService<T> {
 
     public List<T> findAll() {
         return baseDao.selectByExample(null);
+    }
+
+    public List<T> findWithPageAndRows(int page, int rows) {
+
+        PageHelper.startPage(page, rows);
+        List<T> list = baseDao.selectByExample(null);
+        //用PageInfo对结果进行包装
+        PageInfo<T> pageInfo = new PageInfo<T>(list);
+        return pageInfo.getList();
     }
 }
