@@ -1,6 +1,7 @@
 package com.Controller;
 
 import com.Entity.User;
+import com.Entity.dao.UserMapper;
 import com.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,8 @@ import java.util.Map;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserMapper userMapper;
 
     @RequestMapping(value = "/user",method = RequestMethod.GET)   //查
     public @ResponseBody String userListGet(@RequestParam(name = "name",required = false,defaultValue = "defaultName")String name){
@@ -45,7 +48,7 @@ public class UserController {
     @RequestMapping(value = "/list",method = RequestMethod.GET)
     public @ResponseBody Map userListJson(@RequestParam(name = "page",required = false,defaultValue = "1")int page,
                                           @RequestParam(name = "rows",required = false,defaultValue = "20")int rows){
-        List<User> users = userService.findAll();
+        List<User> users = userMapper.selectByExample(null);
         Map map = new HashMap();
         map.put("rows",users);
         map.put("total",users.size());

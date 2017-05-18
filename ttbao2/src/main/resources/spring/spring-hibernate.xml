@@ -11,73 +11,76 @@
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd"
 >
 
-    <bean id="propertyConfigurer"
-    class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location" value="classpath:mysql.properties" />
-    </bean>
+  <bean id="propertyConfigurer"
+        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="location" value="classpath:mysql.properties"/>
+  </bean>
 
-    <!--<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"-->
-          <!--destroy-method="close">-->
-        <!--<property name="driverClass" value="com.mysql.cj.jdbc.Driver"/>-->
-        <!--<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/timdb?characterEncoding=GBK "/>-->
-        <!--<property name="user" value="root"/>-->
-        <!--<property name="password" value="root"/>-->
-        <!--<property name="initialPoolSize" value="3" />-->
-        <!--<property name="maxPoolSize" value="6" />-->
-    <!--</bean>-->
+  <!--<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"-->
+  <!--destroy-method="close">-->
+  <!--<property name="driverClass" value="com.mysql.cj.jdbc.Driver"/>-->
+  <!--<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/timdb?characterEncoding=GBK "/>-->
+  <!--<property name="user" value="root"/>-->
+  <!--<property name="password" value="root"/>-->
+  <!--<property name="initialPoolSize" value="3" />-->
+  <!--<property name="maxPoolSize" value="6" />-->
+  <!--</bean>-->
 
-    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-        <property name="driverClassName" value="${jdbc.driver}"/>
-        <property name="url" value="${jdbc.url}"/>
-        <property name="username" value="${jdbc.username}"/>
-        <property name="password" value="${jdbc.password}"/>
-        <!-- 初始化连接大小 -->
-        <property name="initialSize" value="${jdbc.initialSize}"/>
-        <!-- 连接池最大数量 -->
-        <property name="maxActive" value="${jdbc.maxActive}"/>
-        <!-- 连接池最大空闲 -->
-        <property name="maxIdle" value="${jdbc.maxIdle}"/>
-        <!-- 连接池最小空闲 -->
-        <property name="minIdle" value="${jdbc.minIdle}"/>
-        <!-- 获取连接最大等待时间 -->
-        <property name="maxWait" value="${jdbc.maxWait}"/>
-    </bean>
+  <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+    <property name="driverClassName" value="${jdbc.driver}"/>
+    <property name="url" value="${jdbc.url}"/>
+    <property name="username" value="${jdbc.username}"/>
+    <property name="password" value="${jdbc.password}"/>
+    <!-- 初始化连接大小 -->
+    <property name="initialSize" value="${jdbc.initialSize}"/>
+    <!-- 连接池最大数量 -->
+    <property name="maxActive" value="${jdbc.maxActive}"/>
+    <!-- 连接池最大空闲 -->
+    <property name="maxIdle" value="${jdbc.maxIdle}"/>
+    <!-- 连接池最小空闲 -->
+    <property name="minIdle" value="${jdbc.minIdle}"/>
+    <!-- 获取连接最大等待时间 -->
+    <property name="maxWait" value="${jdbc.maxWait}"/>
+  </bean>
 
-    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
-        <property name="dataSource" ref="dataSource"/>
-        <property name="packagesToScan" value="com.domain" />
-        <property name="hibernateProperties">
-            <props>
-                <!--方言-->
-                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
-                <prop key="hibernate.show_sql">true</prop>
-                <prop key="hibernate.format_sql">true</prop>
-                <prop key="hibernate.hbm2ddl.auto">update</prop>
-            </props>
-        </property>
-    </bean>
+  <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+    <property name="dataSource" ref="dataSource"/>
+    <property name="packagesToScan" value="com.domain"/>
+    <property name="hibernateProperties">
+      <props>
+        <!--方言-->
+        <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+        <prop key="hibernate.show_sql">true</prop>
+        <prop key="hibernate.format_sql">true</prop>
+        <prop key="hibernate.hbm2ddl.auto">update</prop>
+        <!--<prop key="hibernate.current_session_context_class">thread</prop>-->
+      </props>
+    </property>
+  </bean>
 
-    <!-- (事务管理)transaction manager, use JtaTransactionManager for global tx -->
-    <bean id="transactionManager"
-          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource"/>
-    </bean>
-    <!-- 配置事务的传播特性 -->
-    <tx:advice id="txAdvice" transaction-manager="transactionManager">
-        <tx:attributes>
-            <tx:method name="insert" propagation="REQUIRED" read-only="false"/>
-            <tx:method name="update*" propagation="REQUIRED" read-only="false"/>
-            <tx:method name="delete*" propagation="REQUIRED" read-only="false"/>
-            <tx:method name="select*" propagation="REQUIRED" read-only="true"/>
-            <tx:method name="*" propagation="REQUIRED" read-only="true"/>
-        </tx:attributes>
-    </tx:advice>
+  <!-- (事务管理)transaction manager, use JtaTransactionManager for global tx -->
+  <bean id="transactionManager"
+        class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <property name="dataSource" ref="dataSource"/>
+  </bean>
+  <!-- 配置事务 -->
+  <tx:advice id="txAdvice" transaction-manager="transactionManager">
+    <tx:attributes>
+      <tx:method name="insert" propagation="REQUIRED" read-only="false"/>
+      <tx:method name="update*" propagation="REQUIRED" read-only="false"/>
+      <tx:method name="delete*" propagation="REQUIRED" read-only="false"/>
+      <tx:method name="select*" propagation="REQUIRED" read-only="true"/>
+      <tx:method name="*" propagation="REQUIRED" read-only="true"/>
+    </tx:attributes>
+  </tx:advice>
 
-    <!-- 那些类的哪些方法参与事务 -->
-    <aop:config>
-        <aop:pointcut id="allServiceMethod" expression="bean(*Dao)"/>
-        <aop:advisor pointcut-ref="allServiceMethod" advice-ref="txAdvice"/>
+  <!-- 那些类的哪些方法参与事务 -->
+  <!--bean(*Server).*(..)-->
+  <!--execution(public * com.tim.*.*(..))-->
+  <aop:config>
+    <aop:pointcut id="allServiceMethod" expression="bean(*Server).*(..)"/>
+    <aop:advisor pointcut-ref="allServiceMethod" advice-ref="txAdvice"/>
 
-    </aop:config>
+  </aop:config>
 
 </beans>

@@ -2,6 +2,7 @@ package com.domain;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Created by Tim on 2017/5/17.
@@ -12,14 +13,25 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int userid;
+    @Column(length = 32)
     private String username;
+    @Column(length = 32)
+    private String vsername;
+    @Column(length = 32)
     private String password;
     private double salary;
     private Date birthday;
+    @Column(length = 16)
     private String gender;
+    @Column(length = 64)
     private String email;
-    private String telephone;
+    @Column(length = 32)
+    private String mobile;
     private Date gen_date;
+    private Date last_login_time;
+    private int count;
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
+    private Set<Address> addresses;
 
     public User() {
     }
@@ -38,6 +50,14 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getVsername() {
+        return vsername;
+    }
+
+    public void setVsername(String vsername) {
+        this.vsername = vsername;
     }
 
     public String getPassword() {
@@ -80,12 +100,12 @@ public class User {
         this.email = email;
     }
 
-    public String getTelephone() {
-        return telephone;
+    public String getMobile() {
+        return mobile;
     }
 
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
     public Date getGen_date() {
@@ -94,5 +114,29 @@ public class User {
 
     public void setGen_date(Date gen_date) {
         this.gen_date = gen_date;
+    }
+
+    public Date getLast_login_time() {
+        return last_login_time;
+    }
+
+    public void setLast_login_time(Date last_login_time) {
+        this.last_login_time = last_login_time;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public Set<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(Set<Address> addresses) {
+        this.addresses = addresses;
     }
 }
