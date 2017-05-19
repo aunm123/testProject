@@ -26,6 +26,7 @@
     <property name="maxUploadSize" value="10000000"/>
   </bean>
 
+  <!--修改过 hibernate lazy 设置的问题-->
   <mvc:interceptors>
     <!-- 开启openSessionInView -->
     <bean class="org.springframework.orm.hibernate5.support.OpenSessionInViewInterceptor">

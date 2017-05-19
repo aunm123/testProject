@@ -60,17 +60,17 @@
 
   <!-- (事务管理)transaction manager, use JtaTransactionManager for global tx -->
   <bean id="transactionManager"
-        class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        class="org.springframework.orm.hibernate5.HibernateTransactionManager">
     <property name="dataSource" ref="dataSource"/>
+    <property name="sessionFactory" ref="sessionFactory" />
   </bean>
   <!-- 配置事务 -->
   <tx:advice id="txAdvice" transaction-manager="transactionManager">
     <tx:attributes>
-      <tx:method name="insert" propagation="REQUIRED" read-only="false"/>
-      <tx:method name="update*" propagation="REQUIRED" read-only="false"/>
-      <tx:method name="delete*" propagation="REQUIRED" read-only="false"/>
-      <tx:method name="select*" propagation="REQUIRED" read-only="true"/>
-      <tx:method name="*" propagation="REQUIRED" read-only="true"/>
+      <tx:method name="add*" propagation="REQUIRED" read-only="false" rollback-for="Exception"/>
+      <tx:method name="upd*" propagation="REQUIRED" read-only="false" rollback-for="Exception"/>
+      <tx:method name="del*" propagation="REQUIRED" read-only="false" rollback-for="Exception"/>
+      <tx:method name="*" propagation="REQUIRED" read-only="true" rollback-for="Exception"/>
     </tx:attributes>
   </tx:advice>
 
@@ -81,6 +81,9 @@
     <aop:pointcut id="allServiceMethod" expression="bean(*Server).*(..)"/>
     <aop:advisor pointcut-ref="allServiceMethod" advice-ref="txAdvice"/>
 
+    <aop:aspect id="mtaspect" ref="aopLogging">
+      <aop:before method="before" pointcut-ref="allServiceMethod"/>
+    </aop:aspect>
   </aop:config>
 
 </beans>

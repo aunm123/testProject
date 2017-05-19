@@ -1,6 +1,9 @@
 package com.domain;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
@@ -9,17 +12,19 @@ import java.util.Set;
  */
 @Entity
 @Table
-public class User {
+public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int userid;
-    @Column(length = 32)
+    @Column(length = 32,nullable = false)
     private String username;
-    @Column(length = 32)
+    @Column(length = 32,nullable = false)
     private String vsername;
-    @Column(length = 32)
+    @Column(length = 32,nullable = false)
     private String password;
     private double salary;
+
+    @DateTimeFormat( pattern = "yyyy-MM-dd" )
     private Date birthday;
     @Column(length = 16)
     private String gender;
@@ -27,7 +32,10 @@ public class User {
     private String email;
     @Column(length = 32)
     private String mobile;
+
+    @DateTimeFormat( pattern = "yyyy-MM-dd" )
     private Date gen_date;
+    @DateTimeFormat( pattern = "yyyy-MM-dd" )
     private Date last_login_time;
     private int count;
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
