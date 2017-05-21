@@ -1,5 +1,7 @@
 package com.tim;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -13,17 +15,19 @@ import java.util.Map;
  */
 public class BaseControllerImpl<T> implements BaseConterller<T> {
 
-    @ExceptionHandler
+    @ExceptionHandler(RuntimeException.class)
     public @ResponseBody
-    Map exceptionProcess(HttpServletRequest request, HttpServletResponse
+    ResponseEntity<Map<String,Object>> exceptionProcess(HttpServletRequest request, HttpServletResponse
             response, RuntimeException ex) {
 
-        Map<String, String[]> map1 = request.getParameterMap();
+//        Map<String, String[]> map1 = request.getParameterMap();
+//        MultipartHttpServletRequest multiRequest=(MultipartHttpServletRequest)request;
+//        Iterator<String> fileNames = multiRequest.getFileNames();
 
         Map<String,Object> map = new HashMap<String, Object>();
         map.put("isError",true);
         map.put("msg",ex.getMessage());
-        return map1;
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
 
     }
 

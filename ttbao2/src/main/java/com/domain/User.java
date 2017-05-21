@@ -23,7 +23,6 @@ public class User implements Serializable {
     @Column(length = 32,nullable = false)
     private String password;
     private double salary;
-
     @DateTimeFormat( pattern = "yyyy-MM-dd" )
     private Date birthday;
     @Column(length = 16)
@@ -40,6 +39,18 @@ public class User implements Serializable {
     private int count;
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
     private Set<Address> addresses;
+
+    //头像
+    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
+    private IconImg icon;
+
+    public IconImg getIcon() {
+        return icon;
+    }
+
+    public void setIcon(IconImg icon) {
+        this.icon = icon;
+    }
 
     public User() {
     }

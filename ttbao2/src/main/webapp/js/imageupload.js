@@ -79,9 +79,9 @@
                         cssObj = { 'max-width':'360px', 'max-height':'200px' };
                     }
                     thisClosest.find(showBox+" img").css( cssObj );
-                    _callback();
+                    _callback(tmpSrc);
                 };
-            })(f)
+            })(f);
             reader.readAsDataURL(f);
 
         }

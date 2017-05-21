@@ -6,11 +6,14 @@ import com.tim.BaseControllerImpl;
 import com.tim.BaseServer;
 import com.tim.page.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -52,12 +55,15 @@ public class UserController extends BaseControllerImpl<User> {
     }
 
     @RequestMapping(value = "/user",method = RequestMethod.POST)  //增
-    public @ResponseBody Map<String,Object> userPost(User user){
+    public ResponseEntity<String> userPost(User user,@RequestParam("iconimg") MultipartFile iconimg){
+        user.setVsername(null);
+
         Boolean aBoolean = userServer.add(user);
-        Map<String,Object> map = new HashMap<String, Object>();
-        map.put("success",aBoolean);
-        map.put("message","Message sent successfully.");
-        return map;
+        if (aBoolean){
+            return ResponseEntity.ok(null);
+        }else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("服务器正忙，请稍后再试");
+        }
     }
 
     @RequestMapping(value = "/user",method = RequestMethod.PUT)   //改
