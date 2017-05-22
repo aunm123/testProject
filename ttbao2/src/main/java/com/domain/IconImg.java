@@ -11,7 +11,7 @@ public class IconImg {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int iconid;
-    @Column(length = 64,nullable = true)
+    @Column(length = 128,nullable = true)
     private String url;
 
     public IconImg() {

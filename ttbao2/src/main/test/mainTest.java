@@ -1,5 +1,6 @@
 import com.domain.User;
 import com.tim.BaseServer;
+import com.tim.tool.UID;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -24,5 +25,10 @@ public class mainTest {
         user.setVsername("asdasdasd");
         BaseServer userServer = (BaseServer) ac.getBean("userServer");
         userServer.add(user);
+    }
+
+    @Test
+    public void uidTest(){
+        System.out.println(UID.getUUID());
     }
 }

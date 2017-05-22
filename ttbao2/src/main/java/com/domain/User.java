@@ -41,7 +41,7 @@ public class User implements Serializable {
     private Set<Address> addresses;
 
     //头像
-    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
+    @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)
     private IconImg icon;
 
     public IconImg getIcon() {

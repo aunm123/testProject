@@ -10,7 +10,7 @@
         </div>
 
         <div class="js_showBox " style="width: 50%;height: 50% ;margin-top: 7px">
-          <img class="js_logoBox" src="" style="height: 100px;width: 100px" showBox >
+          <img class="js_logoBox" src="" style="height: 100px;width: 100px" showBox>
         </div>
         <!--<input id="iconinput" name="icon" value="" hidden />-->
       </div>
@@ -62,21 +62,17 @@
             iconCls: 'icon-ok',
             handler: function () {
 
-                //icon的数据
-//                $('#iconinput').attr('value',iconData);
-//                console.log(iconData);
-
               $('#ff').form('submit', {
                 url: 'user',
                 success: function (data) {
-                    if (data!=''){
-                        var jsonData =  JSON.parse(data);
-                        if (jsonData.msg!=''){
-                            alert(jsonData.msg)
-                        }
-                    }else {
-                        $('#diaAdd').dialog('close');
+                  if (data != '') {
+                    var jsonData = JSON.parse(data);
+                    if (jsonData.msg != '') {
+                      alert(jsonData.msg)
                     }
+                  } else {
+                    $('#diaAdd').dialog('close');
+                  }
                 }
               });
             }
@@ -87,18 +83,18 @@
               $('#diaAdd').dialog('close');
             }
           }
-            ,{
+            , {
               text: '加载',
               iconCls: 'icon-cancel',
               handler: function () {
-                $('#ff').form('load',{
-                  username:'name2',
-                  password:'pasasdasdasd',
-                  email:'mymail@gmail.com',
-                  vsername:'subject2',
-                  mobile:'13798986854',
-                  gender:'1',
-                  birthday:'2017-05-19'
+                $('#ff').form('load', {
+                  username: 'name2',
+                  password: 'pasasdasdasd',
+                  email: 'mymail@gmail.com',
+                  vsername: 'subject2',
+                  mobile: '13798986854',
+                  gender: '1',
+                  birthday: '2017-05-19'
                 });
               }
             }
@@ -130,6 +126,14 @@
       pageSize: 20,
       columns: [[
         {field: 'userid', title: '用户ID', width: 100, align: 'right'},
+        {
+          field: 'icon', title: '图片', width: 50, align: 'center',
+          formatter: function imgFormatter(value, row, index) {
+            if ('' != value && null != value)
+              value = '<img style="width:30px; height:30px; vertical-align:middle; " src="' + value.url + '">';
+            return value;
+          }
+        },
         {field: 'username', title: '登录名', width: 100, align: 'right'},
         {field: 'password', title: '用户密码', width: 100, align: 'right'},
         {field: 'gender', title: '性别', width: 100, align: 'right'},
@@ -153,16 +157,14 @@
     })
   });
 
-  var iconData = '';
   $(".js_upFile").uploadView({
     uploadBox: '.js_uploadBox',//设置上传框容器
-    showBox : '.js_showBox',//设置显示预览图片的容器
-    width : 100, //预览图片的宽度，单位px
-    height : 100, //预览图片的高度，单位px
+    showBox: '.js_showBox',//设置显示预览图片的容器
+    width: 100, //预览图片的宽度，单位px
+    height: 100, //预览图片的高度，单位px
     allowType: ["gif", "jpeg", "jpg", "bmp", "png"], //允许上传图片的类型
-    maxSize :2, //允许上传图片的最大尺寸，单位M
-    success:function(e){
-        iconData = e;
+    maxSize: 2, //允许上传图片的最大尺寸，单位M
+    success: function () {
       $(".js_uploadText").text('更改');
     }
   });
@@ -175,6 +177,8 @@
     var dataStr = [year, month, date].join('-');
     return dataStr;
   }
+
+
   function genderFormat(gender) {
     if (gender == 0) {
       return '女';

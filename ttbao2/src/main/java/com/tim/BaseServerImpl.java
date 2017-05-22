@@ -14,6 +14,15 @@ public class BaseServerImpl<T> implements BaseServer<T> {
     @Autowired
     private BaseDao<T> baseDao;
 
+//    @PostConstruct
+//    private void per(){
+//        ParameterizedType pt = (ParameterizedType)this.getClass().getGenericSuperclass();
+//        Class<T> classz = (Class<T>) pt.getActualTypeArguments()[0];
+//        String daoClassName = classz.getSimpleName().toLowerCase()+"Mapper";
+//        baseDao = (BaseDao<T>) SpringContextHolder.getBean(daoClassName);
+//
+//    }
+
     public Boolean add(T obj) {
         return baseDao.insert(obj);
     }

@@ -1,10 +1,13 @@
 package com.controller;
 
 import com.domain.Address;
+import com.domain.IconImg;
 import com.domain.User;
 import com.tim.BaseControllerImpl;
 import com.tim.BaseServer;
 import com.tim.page.Page;
+import com.tim.tool.MFileNameUtil;
+import com.tim.tool.UID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +34,9 @@ public class UserController extends BaseControllerImpl<User> {
     @Autowired
     private BaseServer<User> userServer;
 
+    @Autowired
+    private BaseServer<IconImg> iconImgBaseServer;
+
     @RequestMapping(value = "/user",method = RequestMethod.GET)   //查
     public @ResponseBody
     String userGet(@RequestParam(name = "name",required = false,defaultValue = "defaultName")String name){
@@ -39,7 +47,7 @@ public class UserController extends BaseControllerImpl<User> {
     public @ResponseBody
     Map userListGet(
             @RequestParam(name = "page",required = false,defaultValue = "1")int page,
-            @RequestParam(name = "rows",required = false,defaultValue = "2")int rows
+            @RequestParam(name = "rows",required = false,defaultValue = "20")int rows
     ){
         int toCount = userServer.getTotalCount();
         List<User> users = userServer.findPage(new Page(rows,page,toCount));
@@ -55,8 +63,27 @@ public class UserController extends BaseControllerImpl<User> {
     }
 
     @RequestMapping(value = "/user",method = RequestMethod.POST)  //增
-    public ResponseEntity<String> userPost(User user,@RequestParam("iconimg") MultipartFile iconimg){
-        user.setVsername(null);
+    public ResponseEntity<String> userPost(User user, @RequestParam("iconimg") MultipartFile iconimg,
+                                           HttpServletRequest request) throws Exception {
+
+        String iconFileName = UID.getUUID();
+        String filePath = "";
+        String saveFilePath = "";
+        if (!iconimg.isEmpty()) {
+            iconFileName+= "."+MFileNameUtil.getExtensionName(iconimg.getOriginalFilename());
+            saveFilePath = "upload/images/" + iconFileName;
+            filePath = request.getSession().getServletContext().getRealPath("/") + "upload/images/" + iconFileName;
+            // 转存文件
+            iconimg.transferTo(new File(filePath));
+        }
+
+
+        IconImg imageIcon = new IconImg();
+        imageIcon.setUrl(saveFilePath);
+        iconImgBaseServer.add(imageIcon);
+
+        user.setIcon(imageIcon);
+
 
         Boolean aBoolean = userServer.add(user);
         if (aBoolean){

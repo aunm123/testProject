@@ -79,7 +79,7 @@
                         cssObj = { 'max-width':'360px', 'max-height':'200px' };
                     }
                     thisClosest.find(showBox+" img").css( cssObj );
-                    _callback(tmpSrc);
+                    _callback();
                 };
             })(f);
             reader.readAsDataURL(f);
