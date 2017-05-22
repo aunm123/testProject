@@ -1,0 +1,57 @@
+<table id="table">
+</table>
+<script type="text/javascript" >
+  $(function () {
+
+    var toolbar = [{
+      text:'Add',
+      iconCls:'icon-add',
+      handler:function(){alert('add')}
+    },{
+      text:'Cut',
+      iconCls:'icon-cut',
+      handler:function(){alert('cut')}
+    },'-',{
+      text:'Save',
+      iconCls:'icon-save',
+      handler:function(){alert('save')}
+    }];
+
+    $('#table').datagrid({
+      url:'user/list',
+      method:"GET",
+      toolbar:toolbar,
+      rownumbers:true,
+      singleSelect:true,
+      pagination:true,
+      pageNumber:1,
+      pageSize:20,
+      columns:[[
+        {field:'userid',title:'用户ID',width:100},
+        {field:'loginName',title:'登录名',width:150},
+        {field:'password',title:'用户密码',width:100},
+        {field:'sex',title:'性别',width:100},
+        {field:'birthday',title:'生日',width:100},
+        {field:'address',title:'地址',width:150},
+        {field:'vsername',title:'用户名称',width:100},
+        {field:'mobile',title:'电话号码',width:100},
+        {field:'email',title:'电子邮件',width:100},
+        {field:'genTime',title:'创建日期',width:100},
+        {field:'loginTime',title:'登录日期',width:100},
+        {field:'lastLoginTime',title:'最后登录日期',width:150},
+        {field:'count',title:'登录次数',width:100}
+      ]],
+      loadFilter: function(data){
+        data.rows.forEach(function (da) {
+          var tda = new Date(da.birthday);
+          var year = tda.getFullYear();
+          var month = tda.getMonth()+1;
+          var date = tda.getDate();
+          var dataStr = [year,month,date].join('-');
+          da.birthday = dataStr;
+        });
+        return data;
+      }
+    })
+  })
+</script>
