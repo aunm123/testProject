@@ -1,5 +1,5 @@
 import com.domain.User;
-import com.tim.BaseServer;
+import com.tim.BaseClass.BaseServer;
 import com.tim.tool.UID;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,11 +24,30 @@ public class mainTest {
         user.setPassword("asdasdasd");
         user.setVsername("asdasdasd");
         BaseServer userServer = (BaseServer) ac.getBean("userServer");
-        userServer.add(user);
+        userServer.save(user);
     }
 
     @Test
     public void uidTest(){
         System.out.println(UID.getUUID());
+    }
+
+    @Test
+    public void uidfind(){
+        BaseServer userServer = (BaseServer) ac.getBean("userServer");
+        User rea = (User) userServer.find(55);
+        System.out.println(rea.toString());
+    }
+
+    @Test
+    public void uidsave(){
+        BaseServer userServer = (BaseServer) ac.getBean("userServer");
+        User user = new User();
+        user.setUserid(55);
+        user.setUsername("人民币");
+        user.setPassword("123123");
+        user.setVsername("人民币");
+
+        userServer.save(user);
     }
 }

@@ -1,9 +1,14 @@
-package com.tim;
+package com.tim.BaseClass.BaseClassImpl;
 
+import com.tim.BaseClass.BaseDao;
+import com.tim.BaseClass.BaseServer;
 import com.tim.page.Page;
+import com.tim.tool.SpringUtil.SpringContextHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.annotation.PostConstruct;
 import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 /**
@@ -12,23 +17,22 @@ import java.util.List;
 public class BaseServerImpl<T> implements BaseServer<T> {
 
     @Autowired
-    private BaseDao<T> baseDao;
+    protected BaseDao<T> baseDao;
 
+//    private Class<T> classz;
+//
 //    @PostConstruct
 //    private void per(){
 //        ParameterizedType pt = (ParameterizedType)this.getClass().getGenericSuperclass();
-//        Class<T> classz = (Class<T>) pt.getActualTypeArguments()[0];
-//        String daoClassName = classz.getSimpleName().toLowerCase()+"Mapper";
-//        baseDao = (BaseDao<T>) SpringContextHolder.getBean(daoClassName);
-//
+//        classz = (Class<T>) pt.getActualTypeArguments()[0];
 //    }
 
-    public Boolean add(T obj) {
+    public Boolean save(T obj) {
         return baseDao.insert(obj);
     }
 
-    public Boolean del(T obj) {
-        return baseDao.delete(obj);
+    public Boolean del(Serializable id) {
+        return baseDao.delete(baseDao.findById(id));
     }
 
     public Boolean upd(T obj) {
@@ -54,4 +58,5 @@ public class BaseServerImpl<T> implements BaseServer<T> {
     public List<T> findPage(Page page) {
         return baseDao.findPage(page);
     }
+
 }

@@ -1,13 +1,12 @@
 package com.dao;
 
-import com.domain.User;
+import com.domain.Item;
 import com.tim.BaseClass.BaseClassImpl.BaseDaoImpl;
 import org.springframework.stereotype.Component;
 
 /**
- * Created by Tim on 2017/5/18.
+ * Created by timhuo on 2017/5/23.
  */
-@Component("userDao")
-public class UserDao extends BaseDaoImpl<User> {
-
+@Component("itemDao")
+public class ItemDao extends BaseDaoImpl<Item> {
 }

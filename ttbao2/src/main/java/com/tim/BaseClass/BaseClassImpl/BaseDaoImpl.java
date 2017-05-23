@@ -1,5 +1,6 @@
-package com.tim;
+package com.tim.BaseClass.BaseClassImpl;
 
+import com.tim.BaseClass.BaseDao;
 import com.tim.page.Page;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -63,9 +64,10 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
     public T findById(Serializable id) {
         T t = getSession().get(classz, id);
         if (null == t) {
-            return t;
-        } else {
             return null;
+        } else {
+            return t;
+
         }
     }
 

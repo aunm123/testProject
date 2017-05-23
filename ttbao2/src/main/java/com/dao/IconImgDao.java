@@ -1,7 +1,7 @@
 package com.dao;
 
 import com.domain.IconImg;
-import com.tim.BaseDaoImpl;
+import com.tim.BaseClass.BaseClassImpl.BaseDaoImpl;
 import org.springframework.stereotype.Component;
 
 /**

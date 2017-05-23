@@ -10,18 +10,18 @@ import javax.persistence.*;
 public class IconImg {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int iconid;
+    private Integer iconid;
     @Column(length = 128,nullable = true)
     private String url;
 
     public IconImg() {
     }
 
-    public int getIconid() {
+    public Integer getIconid() {
         return iconid;
     }
 
-    public void setIconid(int iconid) {
+    public void setIconid(Integer iconid) {
         this.iconid = iconid;
     }
 

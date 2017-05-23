@@ -1,5 +1,7 @@
 package com.domain;
 
+import com.tim.BaseClass.BasePojo;
+
 import javax.persistence.*;
 
 /**
@@ -7,10 +9,10 @@ import javax.persistence.*;
  */
 @Entity
 @Table
-public class Address {
+public class Address extends BasePojo {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int addressid;
+    private Integer addressid;
     private int provinceid;
     private int countryid;
     private int cityid;
@@ -39,11 +41,11 @@ public class Address {
         this.user = user;
     }
 
-    public int getAddressid() {
+    public Integer getAddressid() {
         return addressid;
     }
 
-    public void setAddressid(int addressid) {
+    public void setAddressid(Integer addressid) {
         this.addressid = addressid;
     }
 

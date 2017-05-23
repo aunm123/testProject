@@ -16,16 +16,6 @@
     <property name="location" value="classpath:mysql.properties"/>
   </bean>
 
-  <!--<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"-->
-  <!--destroy-method="close">-->
-  <!--<property name="driverClass" value="com.mysql.cj.jdbc.Driver"/>-->
-  <!--<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/timdb?characterEncoding=GBK "/>-->
-  <!--<property name="user" value="root"/>-->
-  <!--<property name="password" value="root"/>-->
-  <!--<property name="initialPoolSize" value="3" />-->
-  <!--<property name="maxPoolSize" value="6" />-->
-  <!--</bean>-->
-
   <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
     <property name="driverClassName" value="${jdbc.driver}"/>
     <property name="url" value="${jdbc.url}"/>
@@ -67,7 +57,7 @@
   <!-- 配置事务 -->
   <tx:advice id="txAdvice" transaction-manager="transactionManager">
     <tx:attributes>
-      <tx:method name="add*" propagation="REQUIRED" read-only="false" rollback-for="Exception"/>
+      <tx:method name="save*" propagation="REQUIRED" read-only="false" rollback-for="Exception"/>
       <tx:method name="upd*" propagation="REQUIRED" read-only="false" rollback-for="Exception"/>
       <tx:method name="del*" propagation="REQUIRED" read-only="false" rollback-for="Exception"/>
       <tx:method name="*" propagation="REQUIRED" read-only="true" rollback-for="Exception"/>
@@ -81,9 +71,9 @@
     <aop:pointcut id="allServiceMethod" expression="bean(*Server).*(..)"/>
     <aop:advisor pointcut-ref="allServiceMethod" advice-ref="txAdvice"/>
 
-    <aop:aspect id="mtaspect" ref="aopLogging">
-      <aop:before method="before" pointcut-ref="allServiceMethod"/>
-    </aop:aspect>
+    <!--<aop:aspect id="mtaspect" ref="aopLogging">-->
+      <!--<aop:before method="before" pointcut-ref="allServiceMethod"/>-->
+    <!--</aop:aspect>-->
   </aop:config>
 
 </beans>

@@ -11,6 +11,7 @@
   <script type="text/javascript" src="../easyui/1.5.2/jquery.easyui.min.js"></script>
   <script type="text/javascript" src="../easyui/1.5.2/locale/easyui-lang-zh_CN.js"></script>
   <script type="text/javascript" src="../js/indexMeum.js"></script>
+  <script type="text/javascript" src="../js/imageupload.js"></script>
 </head>
 <body class="easyui-layout">
 <!-- begin of header -->

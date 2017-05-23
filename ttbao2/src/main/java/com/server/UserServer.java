@@ -1,12 +1,12 @@
 package com.server;
 
+import com.domain.IconImg;
 import com.domain.User;
-import com.tim.BaseServerImpl;
-import org.springframework.stereotype.Service;
+import com.tim.BaseClass.BaseServer;
 
 /**
- * Created by timhuo on 2017/5/18.
+ * Created by timhuo on 2017/5/23.
  */
-@Service
-public class UserServer extends BaseServerImpl<User> {
+public interface UserServer extends BaseServer<User> {
+    public boolean saveUserWithIcon(User user, IconImg iconImg);
 }

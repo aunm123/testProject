@@ -48,34 +48,21 @@
 </div>
 <script type="text/javascript">
 
-  $(".js_upFile").uploadView({
-    uploadBox: '.js_uploadBox',//设置上传框容器
-    showBox : '.js_showBox',//设置显示预览图片的容器
-    width : 100, //预览图片的宽度，单位px
-    height : 100, //预览图片的高度，单位px
-    allowType: ["gif", "jpeg", "jpg", "bmp", "png"], //允许上传图片的类型
-    maxSize :2, //允许上传图片的最大尺寸，单位M
-    success:function(e){
-      $(".js_uploadText").text('更改');
-      alert('图片上传成功');
-    }
-  });
-
   $(function () {
 
     var toolbar = [{
-      text: '添加用户',
+      text: '添加商品',
       iconCls: 'icon-add',
       handler: function () {
         addfun();
       }
     }, {
-      text: '编辑用户',
+      text: '编辑商品',
       iconCls: 'icon-edit',
       handler: function () {
         var data = $('#table').datagrid('getSelected');
         if(null == data){
-          alert("请选择其中一个用户才能进行编辑");
+          alert("请选择其中一个商品才能进行编辑");
           return ;
         }
         editfun(data);
@@ -86,13 +73,13 @@
       handler: function () {
         var data = $('#table').datagrid('getSelected');
         if(null == data){
-          alert("请选择其中一个用户才能进行删除");
+          alert("请选择其中一个商品才能进行删除");
           return ;
         }
         $.ajax({
           type: "POST",
           url: "user",
-          data: {userid: data.userid,_method: "DELETE" },
+          data: { itemid: data.itemid,_method: "DELETE" },
           success: function(){
             $('#table').datagrid('reload');
           },
@@ -110,19 +97,11 @@
       pageNumber: 1,
       pageSize: 20,
       columns: [[
-        {field: 'userid', title: '用户ID', width: 100, align: 'right'},
-        {
-          field: 'icon', title: '头像', width: 50, align: 'center',
-          formatter: function imgFormatter(value, row, index) {
-            if ('' != value && null != value)
-              value = '<img style="width:30px; height:30px; vertical-align:middle; " src="' + value.url + '">';
-            return value;
-          }
-        },
-        {field: 'username', title: '登录名', width: 100, align: 'right'},
-        {field: 'password', title: '用户密码', width: 100, align: 'right'},
-        {field: 'gender', title: '性别', width: 100, align: 'right'},
-        {field: 'birthday', title: '生日', width: 100, align: 'right'},
+        {field: 'itemid', title: '商品ID', width: 100, align: 'right'},
+        {field: 'item_name', title: '商品名', width: 100, align: 'right'},
+        {field: 'item_price', title: '商品价格', width: 100, align: 'right'},
+        {field: 'category_categoryid', title: '性别', width: 100, align: 'right'},
+        {field: 'category_categoryid', title: '生日', width: 100, align: 'right'},
         {field: 'vsername', title: '用户名称', width: 100, align: 'right'},
         {field: 'mobile', title: '电话号码', width: 100, align: 'right'},
         {field: 'email', title: '电子邮件', width: 150, align: 'right'},
@@ -253,14 +232,14 @@
       onOpen: loadFun,
       buttons: [
         {
-        text: '保存',
-        iconCls: 'icon-ok',
-        handler: saveFun
+          text: '保存',
+          iconCls: 'icon-ok',
+          handler: saveFun
         }, {
-        text: '取消',
-        iconCls: 'icon-cancel',
-        handler: function () {
-          $('#diaAdd').dialog('close');
+          text: '取消',
+          iconCls: 'icon-cancel',
+          handler: function () {
+            $('#diaAdd').dialog('close');
           }
         }
       ]

@@ -7,8 +7,8 @@
         var defaults = {
             uploadBox: '.js_uploadBox', //设置上传框容器
             showBox : '.js_showBox', //设置显示预览图片的容器
-            width : 200, //设置预览图片的宽度
-            height: 200, //设置预览图片的高度
+            /*width : 200, //设置预览图片的宽度*/
+            height: 240, //设置预览图片的高度
             allowType: ["gif", "jpeg", "jpg", "bmp", "png"],
             maxSize: 1, //设置允许上传图片的最大尺寸，单位M
             success:$.noop //上传成功时的回调函数
@@ -76,12 +76,13 @@
                     } else if (_h) {
                         cssObj = { 'height':_h+'px' };
                     } else {
-                        cssObj = { 'max-width':'360px', 'max-height':'200px' };
+                        cssObj = { 'max-width':'100%', 'max-height':'100%' };
                     }
                     thisClosest.find(showBox+" img").css( cssObj );
+                    console.log("asdasd");
                     _callback();
                 };
-            })(f);
+            })(f)
             reader.readAsDataURL(f);
 
         }

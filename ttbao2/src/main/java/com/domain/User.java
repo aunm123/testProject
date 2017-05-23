@@ -1,9 +1,9 @@
 package com.domain;
 
+import com.tim.BaseClass.BasePojo;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
@@ -12,10 +12,10 @@ import java.util.Set;
  */
 @Entity
 @Table
-public class User implements Serializable {
+public class User extends BasePojo {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int userid;
+    private Integer userid;
     @Column(length = 32,nullable = false)
     private String username;
     @Column(length = 32,nullable = false)
@@ -33,15 +33,13 @@ public class User implements Serializable {
     private String mobile;
 
     @DateTimeFormat( pattern = "yyyy-MM-dd" )
-    private Date gen_date;
-    @DateTimeFormat( pattern = "yyyy-MM-dd" )
     private Date last_login_time;
     private int count;
-    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE,orphanRemoval = true)
     private Set<Address> addresses;
 
     //头像
-    @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)
+    @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL,orphanRemoval = true)
     private IconImg icon;
 
     public IconImg getIcon() {
@@ -55,11 +53,11 @@ public class User implements Serializable {
     public User() {
     }
 
-    public int getUserid() {
+    public Integer getUserid() {
         return userid;
     }
 
-    public void setUserid(int userid) {
+    public void setUserid(Integer userid) {
         this.userid = userid;
     }
 
@@ -125,14 +123,6 @@ public class User implements Serializable {
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
-    }
-
-    public Date getGen_date() {
-        return gen_date;
-    }
-
-    public void setGen_date(Date gen_date) {
-        this.gen_date = gen_date;
     }
 
     public Date getLast_login_time() {
